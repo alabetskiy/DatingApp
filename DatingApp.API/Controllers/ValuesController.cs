@@ -23,6 +23,7 @@ namespace DatingApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
+           var test = User.Identity.Name;
            var values = await _context.Values.ToListAsync();
            return Ok(values);
         }
