@@ -1,4 +1,4 @@
-<form #registerForm = "ngForm" (ngSubmit)="register()">
+<form #registerForm="ngForm" (ngSubmit)="register()">
 
   <h2 class="text-center text-primary">Sign Up</h2>
 
@@ -8,7 +8,15 @@
   </div>
 
   <div class="form-group">
-    <input type="password" class="form-control"required name="password" [(ngModel)]="model.password" placeholder="Password">
+    <input type="password" class="form-control" required name="password" [(ngModel)]="model.password" placeholder="Password">
+  </div>
+  <div class="form-group">
+
+    <label for="favouriteValue"> What is your favourite value?</label>
+    <select class="form-control" id="favouriteValue">
+      <option *ngFor="let value of ValuesFromHome" [value]="value">{{value.name}}</option>
+    </select>
+
   </div>
 
   <div class="form-group text-center">

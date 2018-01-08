@@ -15,9 +15,9 @@ value:any;
     this.getValue();
   }
 getValue(){
-  
-  this.http.get('http://localhost:5000/api/values').subscribe(response=>{
-    this.value = response.json();
-  })
-}
+  // this.http.get('http://localhost:5000/api/values').subscribe(response=>{
+  //   this.value = response.json();
+  // })
+
+  }
 }
