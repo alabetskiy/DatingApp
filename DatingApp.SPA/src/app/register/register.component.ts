@@ -9,7 +9,7 @@ import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
   model: any = {};
-  @Input() ValuesFromHome: any;
+
   @Output() cancelRegiser = new EventEmitter();
 
 
