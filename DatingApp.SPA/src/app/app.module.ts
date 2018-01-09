@@ -23,8 +23,9 @@ import { RegisterComponent } from './register/register.component';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
-    FormsModule
+    HttpModule, //old http client
+    FormsModule,
+    HttpClientModule //new http client 
        
   ],
   providers: [
