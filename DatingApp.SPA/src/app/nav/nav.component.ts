@@ -1,6 +1,7 @@
 import { AlertifyService } from './../_services/alertify.service';
 import { AuthService } from './../_services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavComponent implements OnInit {
 model:any = {};
 
-  constructor(private authService:AuthService, private alertify:AlertifyService) { }
+  constructor(private authService:AuthService, private alertify:AlertifyService, private router:Router) { }
 
   ngOnInit() {
   }
@@ -21,8 +22,9 @@ login(){
     
     this.alertify.success('logged in successfully');
   }, error =>{
-    debugger;
     this.alertify.error('Invalid credentials');
+  }, () => {      //after observable is complited, lets use anonumus function 
+    this.router.navigate(['/members']);
   });
 }
 
@@ -30,6 +32,7 @@ logout(){
   this.authService.userToken = null;
   localStorage.removeItem('token');
   this.alertify.message('logged out!');
+  this.router.navigate(['/home']);
 }
 
 loggedIn(){

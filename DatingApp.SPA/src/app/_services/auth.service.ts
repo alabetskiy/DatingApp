@@ -41,7 +41,8 @@ export class AuthService {
 
 
   private handleError(error: any) {
-    const applicationError = error.Headers.get('Application-Error');
+
+    const applicationError = error.headers.get('Application-Error');
     if (applicationError) {
       return Observable.throw(applicationError);
     }
