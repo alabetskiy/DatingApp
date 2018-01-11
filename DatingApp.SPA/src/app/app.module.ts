@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 
@@ -26,7 +27,8 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     HttpModule, //old http client
     FormsModule,
-    HttpClientModule //new http client 
+    HttpClientModule, //new http client 
+    BsDropdownModule.forRoot()
        
   ],
   providers: [

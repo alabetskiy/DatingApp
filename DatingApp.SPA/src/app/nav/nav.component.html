@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -10,11 +10,13 @@
       <a class="navbar-brand" href="#">Dating App</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
+      <div *ngIf="authService.loggedIn()">
       <ul class = "nav navbar-nav">
         <li><a href="#">Matches</a></li>
         <li><a href="#">Lists</a></li>
         <li><a href="#">Messages</a></li>
       </ul>
+    </div>
 
       <form *ngIf="!loggedIn()" #loginForm="ngForm" class="navbar-form navbar-right" (ngSubmit)="login()">
         <div class="form-group">
@@ -27,10 +29,10 @@
       </form>
 
       <ul *ngIf="loggedIn()" class="nav navbar-nav navbar-right">
-        <li><a (click)="logout()">Logout</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome User <span class="caret"></span></a>
-          <ul class="dropdown-menu">
+
+        <li dropdown>
+          <a href="#" class="dropdown-toggle" dropdownToggle>Welcome, {{authService.decodedToken.unique_name | titlecase}} <span class="caret"></span></a>
+          <ul class="dropdown-menu" *dropdownMenu>
             <li><a href="#"><i class="fa fa-user"></i>Edit Profile</a></li>
             <li role="separator" class="divider"></li>
             <li><a (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a></li>

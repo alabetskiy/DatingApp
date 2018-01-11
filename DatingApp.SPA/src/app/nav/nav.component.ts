@@ -18,6 +18,7 @@ model:any = {};
 
 login(){
   this.authService.login(this.model).subscribe(data => {
+    
     this.alertify.success('logged in successfully');
   }, error =>{
     debugger;
@@ -32,8 +33,7 @@ logout(){
 }
 
 loggedIn(){
-  const token = localStorage.getItem('token');
-    return !!token;
+  return this.authService.loggedIn();
 }
 
 }
