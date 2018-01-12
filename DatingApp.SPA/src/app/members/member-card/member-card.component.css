@@ -1,0 +1,57 @@
+.panel-body {
+    padding:5px;
+}
+.panel-image img{
+    width:100%;
+}
+
+h5{
+    font-size: 16px;
+    font-weight: 700;
+    color:#3a3c41;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+h5 small {
+    font-weight: bold;
+    font-size:12px;
+    font-style:italic;
+}
+
+.panel:hover img{
+    transform: scale(1.2,1.2);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    opacity: 0.7;
+}
+
+.panel-image{
+    overflow: hidden;
+    position: relative;
+}
+
+.member-icons{
+    position:absolute; 
+    bottom: -30%;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    opacity:0;
+}
+.panel:hover .member-icons{
+    bottom:0;
+    opacity: 1;
+}
+.animate{
+transition: all 0.3s ease-in-out;
+}
+
+@media(max-width:768px) {
+    .btn {
+        padding:2px 4px;
+        font-size: 80%;
+        line-height: 1;
+    }
+}

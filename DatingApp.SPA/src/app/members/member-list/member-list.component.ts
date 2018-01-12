@@ -1,6 +1,6 @@
-import { AlertifyService } from './../_services/alertify.service';
-import { UserService } from './../_services/user.service';
-import { User } from './../_models/User';
+import { AlertifyService } from './../../_services/alertify.service';
+import { UserService } from './../../_services/user.service';
+import { User } from './../../_models/User';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -23,4 +23,5 @@ export class MemberListComponent implements OnInit {
       this.alertify.error(error);
     })
   }
+
 }
