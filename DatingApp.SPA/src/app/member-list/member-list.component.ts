@@ -1,3 +1,6 @@
+import { AlertifyService } from './../_services/alertify.service';
+import { UserService } from './../_services/user.service';
+import { User } from './../_models/User';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./member-list.component.css']
 })
 export class MemberListComponent implements OnInit {
-
-  constructor() { }
+  users: User[];
+  constructor(private userService: UserService, private alertify: AlertifyService) { }
 
   ngOnInit() {
+    this.loadUsers();
   }
 
+  loadUsers() {
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+    }, error => {
+      this.alertify.error(error);
+    })
+  }
 }
