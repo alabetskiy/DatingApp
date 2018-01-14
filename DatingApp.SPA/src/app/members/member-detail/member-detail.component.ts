@@ -17,16 +17,20 @@ user:User
     private route:ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadUser();
+    // this.loadUser(); we can use it and ignore resolver ..
+    this.route.data.subscribe(data=>{
+      this.user = data['user'];
+    })
   }
 
   //members/3
-loadUser(){
-  let userId = +this.route.snapshot.params['id'];   //I added + before agrument because I want actual number from route not string
-  this.userService.getUser(userId).subscribe((user:User) => {
-  this.user = user;
-  }, error => {
-    this.altrify.error(error);
-  }); 
-}
+    // this.loadUser(); we can use it and ignore resolver ..
+// loadUser(){
+//   let userId = +this.route.snapshot.params['id'];   //I added + before agrument because I want actual number from route not string
+//   this.userService.getUser(userId).subscribe((user:User) => {
+//   this.user = user;
+//   }, error => {
+//     this.altrify.error(error);
+//   }); 
+// }
 }

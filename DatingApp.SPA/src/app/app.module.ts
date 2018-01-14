@@ -22,6 +22,8 @@ import { MessagesComponent } from './messages/messages.component';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthModule } from './auth/auth.module';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 
 
 
@@ -52,7 +54,9 @@ import { AuthModule } from './auth/auth.module';
     AuthService,
     AlertifyService,
     AuthGuard,
-    UserService
+    UserService,
+    MemberDetailResolver,
+    MemberListResolver
   ],
   bootstrap: [AppComponent]
 })
