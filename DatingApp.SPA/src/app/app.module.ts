@@ -27,6 +27,7 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 
 
@@ -60,6 +61,7 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
     AuthService,
     AlertifyService,
     AuthGuard,
+    PreventUnsavedChanges,
     UserService,
     MemberDetailResolver,
     MemberListResolver,

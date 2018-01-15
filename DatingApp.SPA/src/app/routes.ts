@@ -9,6 +9,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -19,7 +20,10 @@ export const appRoutes: Routes = [
         children: [
             { path: 'members', component: MemberListComponent, resolve: { users: MemberListResolver } },        //adding resolve will help me to get rid of "?" when accessing object property
             { path: 'members/:id', component: MemberDetailComponent, resolve: { user: MemberDetailResolver } }, //adding resolve will help me to get rid of "?" when accessing object property
-            { path: 'member/edit', component: MemberEditComponent, resolve: {user:MemberEditResolver} },        //adding resolve will help me to get rid of "?" when accessing object property
+            {
+                path: 'member/edit', component: MemberEditComponent,
+                resolve: { user: MemberEditResolver }, canDeactivate: [PreventUnsavedChanges]
+            },        //adding resolve will help me to get rid of "?" when accessing object property. Using canDeactivate because we want to warning user that he has some unsaved changes.  
             { path: 'messages', component: MessagesComponent },
             { path: 'lists', component: ListComponent },
         ]
