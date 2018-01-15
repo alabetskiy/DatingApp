@@ -25,6 +25,8 @@ import { AuthModule } from './auth/auth.module';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 
 
 
@@ -39,7 +41,8 @@ import { NgxGalleryModule } from 'ngx-gallery';
     ListComponent,
     MessagesComponent,
     MemberCardComponent,
-    MemberDetailComponent
+    MemberDetailComponent,
+    MemberEditComponent
 ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import { NgxGalleryModule } from 'ngx-gallery';
     TabsModule.forRoot(),
     NgxGalleryModule,
     AuthModule   //this is my authModule which I got from https://github.com/auth0/angular2-jwt#advanced-configuration   
+
   ],
   providers: [
     AuthService,
@@ -58,7 +62,8 @@ import { NgxGalleryModule } from 'ngx-gallery';
     AuthGuard,
     UserService,
     MemberDetailResolver,
-    MemberListResolver
+    MemberListResolver,
+    MemberEditResolver
   ],
   bootstrap: [AppComponent]
 })
