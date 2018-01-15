@@ -24,6 +24,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 
 
@@ -48,6 +49,7 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(appRoutes), //appRoutes is my ts file where I define all my routes. 
     TabsModule.forRoot(),
+    NgxGalleryModule,
     AuthModule   //this is my authModule which I got from https://github.com/auth0/angular2-jwt#advanced-configuration   
   ],
   providers: [
