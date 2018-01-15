@@ -39,6 +39,7 @@ namespace DatingApp.API
             services.AddTransient<Seed>();
            
             services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings")); //Use it when injecting to PhotoController
             services.AddAutoMapper(); //Sometimes I need to restart VS code in order to add namespace..bug with intellisense. 
             services.AddScoped<IAuthRepository,AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
