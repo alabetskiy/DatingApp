@@ -1,3 +1,5 @@
+import { AuthService } from './../../_services/auth.service';
+import { UserService } from './../../_services/user.service';
 import { AlertifyService } from './../../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from './../../_models/User';
@@ -11,10 +13,13 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./member-edit.component.css']
 })
 export class MemberEditComponent implements OnInit {
-user:User;
-@ViewChild('editForm') editForm: NgForm;
+  user: User;
+  @ViewChild('editForm') editForm: NgForm;
 
-  constructor(private route:ActivatedRoute, private alertify:AlertifyService) { } //we need to inject ActivatedRoute because it will contain data, which we are fetching inside our route resolver (!)
+  constructor(private route: ActivatedRoute, //we need to inject ActivatedRoute because it will contain data, which we are fetching inside our route resolver (!)
+    private alertify: AlertifyService,
+    private userService: UserService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -22,9 +27,14 @@ user:User;
     })
   }
 
-  updateUser(){
-this.alertify.success('Profile updated sucessfully');
-this.editForm.reset(this.user); //we are reseting the staet of our Form
+  updateUser() {
+    this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe(next => {
+      this.alertify.success('Profile updated sucessfully');
+      this.editForm.reset(this.user); //we are reseting the staet of our Form
+    }, error => {
+      this.alertify.error(error);
+    })
+
   }
 
 }
