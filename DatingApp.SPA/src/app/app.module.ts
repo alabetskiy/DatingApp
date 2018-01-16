@@ -28,6 +28,8 @@ import { NgxGalleryModule } from 'ngx-gallery';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload/file-upload/file-upload.module';
 
 
 
@@ -43,7 +45,8 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
     MessagesComponent,
     MemberCardComponent,
     MemberDetailComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
 ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
     RouterModule.forRoot(appRoutes), //appRoutes is my ts file where I define all my routes. 
     TabsModule.forRoot(),
     NgxGalleryModule,
-    AuthModule   //this is my authModule which I got from https://github.com/auth0/angular2-jwt#advanced-configuration   
+    AuthModule,   //this is my authModule which I got from https://github.com/auth0/angular2-jwt#advanced-configuration   
+    FileUploadModule
 
   ],
   providers: [
