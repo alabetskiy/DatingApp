@@ -59,6 +59,7 @@ import { FileUploadModule } from 'ng2-file-upload/file-upload/file-upload.module
     NgxGalleryModule,
     AuthModule,   //this is my authModule which I got from https://github.com/auth0/angular2-jwt#advanced-configuration   
     FileUploadModule
+    
 
   ],
   providers: [
