@@ -15,6 +15,7 @@ import { NgForm } from '@angular/forms';
 export class MemberEditComponent implements OnInit {
   user: User;
   @ViewChild('editForm') editForm: NgForm;
+  photoUrl:string;
 
   constructor(private route: ActivatedRoute, //we need to inject ActivatedRoute because it will contain data, which we are fetching inside our route resolver (!)
     private alertify: AlertifyService,
@@ -25,6 +26,7 @@ export class MemberEditComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.user = data['user'];
     })
+    this.authService.currentPhotoUrl.subscribe(photoUrl =>this.photoUrl = photoUrl); //assigning value from Observable to this.photoUrl. And now we can use it in member-edit.component.html
   }
 
   updateUser() {

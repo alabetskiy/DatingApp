@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { User } from '../_models/User';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AuthService {
@@ -15,8 +16,13 @@ export class AuthService {
   decodedToken: any;
   currentUser: User;
   jwtHelper: JwtHelper = new JwtHelper();
-
+  private photoUrl = new BehaviorSubject<string>('../../assets/user.png'); //using BehaviourSubject to export values to any component
+  currentPhotoUrl = this.photoUrl.asObservable(); // we're using it because we want certain component can subscribe to it and get latest photoUrl
   constructor(private http: Http) { }
+
+  changeMemberPhoto(photoUrl: string) {
+    this.photoUrl.next(photoUrl);
+  }
 
   login(model: any) {
 
@@ -29,6 +35,7 @@ export class AuthService {
         this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
         this.currentUser = user.user;
         this.userToken = user.tokenString;
+        this.changeMemberPhoto(this.currentUser.photoUrl);
       }
     }).catch(this.handleError);
   }
