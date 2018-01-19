@@ -30,13 +30,19 @@ export class RegisterComponent implements OnInit {
 
   //Using FormBuilder is preferably. Shorter syntax. 
   createRegisterForm() {
-    this.registerForm = this.fb.group({
+    this.registerForm = this.fb.group(
+      {
+        gender: ['male'], //because it is a radio button I need to supply some default values...    
+        username: ['', Validators.required],
+        knownAs: ['', Validators.required],
+        dateOfBirth: [null, Validators.required], //because it's date field initiall value will be null
+        city: ['', Validators.required],
+        country: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
+        confirmPassword: ['', Validators.required]
+      },
+      { validator: this.passwordMatchValidator });
 
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
-      confirmPassword: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator });
-    
   }
 
   passwordMatchValidator(g: FormGroup) {
