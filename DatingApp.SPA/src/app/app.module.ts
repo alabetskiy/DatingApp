@@ -7,7 +7,7 @@ import { AuthService } from './_services/auth.service';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -58,7 +58,8 @@ import { FileUploadModule } from 'ng2-file-upload/file-upload/file-upload.module
     TabsModule.forRoot(),
     NgxGalleryModule,
     AuthModule,   //this is my authModule which I got from https://github.com/auth0/angular2-jwt#advanced-configuration   
-    FileUploadModule
+    FileUploadModule,
+    ReactiveFormsModule,
     
 
   ],
