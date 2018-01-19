@@ -11,8 +11,8 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  model: any = {};
   @Output() cancelRegiser = new EventEmitter();
+  model: any = {};
   registerForm: FormGroup; //Reactive Forms
 
   constructor(private authService: AuthService, private alertify: AlertifyService, private fb: FormBuilder) { }

@@ -8,7 +8,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 
@@ -54,6 +54,7 @@ import { FileUploadModule } from 'ng2-file-upload/file-upload/file-upload.module
     FormsModule,
     HttpClientModule, //new http client 
     BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes), //appRoutes is my ts file where I define all my routes. 
     TabsModule.forRoot(),
     NgxGalleryModule,

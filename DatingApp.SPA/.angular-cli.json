@@ -24,6 +24,7 @@
         "../node_modules/alertifyjs/build/css/alertify.min.css",
         "../node_modules/alertifyjs/build/css/themes/bootstrap.min.css",
         "../node_modules/bootswatch/united/bootstrap.min.css",
+        "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
        
         "styles.css"
       ],

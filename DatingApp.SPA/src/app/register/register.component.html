@@ -34,7 +34,7 @@
 <!-- date of birth -->
 
 <div class="form-group" [ngClass]="{'has-error': registerForm.get('dateOfBirth').touched && registerForm.get('dateOfBirth').hasError('required')}">
-    <input class="form-control" type="date" placeholder="Date of Birth" formControlName="dateOfBirth">
+    <input class="form-control" type="text" placeholder="Date of Birth" bsDatepicker formControlName="dateOfBirth">
     <span class="help-block" *ngIf="registerForm.get('dateOfBirth').touched && registerForm.get('dateOfBirth').hasError('required')">
       Date of birth is required
     </span>
