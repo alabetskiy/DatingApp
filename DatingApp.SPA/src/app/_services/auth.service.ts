@@ -21,7 +21,7 @@ export class AuthService {
   constructor(private http: Http) { }
 
   changeMemberPhoto(photoUrl: string) {
-    this.photoUrl.next(photoUrl);
+    this.photoUrl.next(photoUrl); //assigning value for photoUrl BehaviorSubject
   }
 
   login(model: any) {
@@ -35,7 +35,12 @@ export class AuthService {
         this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
         this.currentUser = user.user;
         this.userToken = user.tokenString;
-        this.changeMemberPhoto(this.currentUser.photoUrl);
+        if(this.currentUser.photoUrl !== null) {
+          this.changeMemberPhoto(this.currentUser.photoUrl);
+        } else {
+          this.changeMemberPhoto('../../assets/user.png'); //do not foget to add it globaly in app.component.ts. It will help to avoid issue with refresh button
+        }
+       
       }
     }).catch(this.handleError);
   }

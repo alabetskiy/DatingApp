@@ -17,7 +17,7 @@ photoUrl:string;
 
   ngOnInit() {
     //getting data from Observable (any-to-any component relatioship)
-    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
+    this.authService.currentPhotoUrl.subscribe(model => this.photoUrl = model);
   }
 
 login(){
