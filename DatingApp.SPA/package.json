@@ -32,6 +32,7 @@
     "ngx-bootstrap": "^2.0.0-rc.0",
     "ngx-gallery": "^4.1.2",
     "rxjs": "^5.5.2",
+    "time-ago-pipe": "^1.2.1",
     "underscore": "^1.8.3",
     "zone.js": "^0.8.14"
   },
