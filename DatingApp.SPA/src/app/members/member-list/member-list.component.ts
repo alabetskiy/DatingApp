@@ -3,6 +3,8 @@ import { AlertifyService } from './../../_services/alertify.service';
 import { UserService } from './../../_services/user.service';
 import { User } from './../../_models/User';
 import { Component, OnInit } from '@angular/core';
+import { Pagination, PaginatedResult } from '../../_models/Pagination';
+import { error } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-member-list',
@@ -11,15 +13,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemberListComponent implements OnInit {
   users: User[];
+  pagination:Pagination;
   constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     // this.loadUsers();
     this.route.data.subscribe(data => {
-      this.users = data['users'];
+      this.users = data['users'].result;
+      this.pagination = data['users'].pagination;
+      console.log(this.pagination);
     })
   }
 
+
+  loadUsers(){
+    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage)
+    .subscribe((res:PaginatedResult<User[]>) => {
+      this.users = res.result;
+      this.pagination = res.pagination
+    }, error => {
+      this.alertify.error(error);
+    })
+  }
+
+  //This method copied from ngx-bootstrap in order to wire pageChanged event
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.loadUsers();
+    this.pagination.itemsPerPage = event.itemsPerPage;
+
+    // console.log('Page changed to: ' + event.page);
+    // console.log('Number items per page: ' + event.itemsPerPage);
+  }
   // loadUsers() {
   //   this.userService.getUsers().subscribe((users: User[]) => {
   //     this.users = users;

@@ -11,6 +11,8 @@ import 'rxjs/add/observable/of';
 
 @Injectable() //we neeed this because it is not a component
 export class MemberListResolver implements Resolve<User[]> {
+    pageSize = 5;
+    pageNumber = 1;
     constructor(private userService:UserService, 
                 private router: Router, 
                 private alertify:AlertifyService) {} 
@@ -18,7 +20,7 @@ export class MemberListResolver implements Resolve<User[]> {
 //so basicly we go to our userService and getting the user and returning an Observable to our component
 
     resolve(route:ActivatedRouteSnapshot):Observable<User[]>{
-        return this.userService.getUsers()
+        return this.userService.getUsers(this.pageNumber, this.pageSize)
         .catch(error => {
             this.alertify.error('Problem retrieving data');
             this.router.navigate(['/members']);
