@@ -53,6 +53,16 @@ namespace DatingApp.API.Data
             users = users.Where(u => u.Id != userParams.UserId);
             users = users.Where(u => u.Gender == userParams.Gender);
 
+            if(userParams.Likers)
+            {
+                users = users.Where(u => u.Liker.Any(l => l.LikerId == u.Id));
+            }
+
+            if(userParams.Likees)
+            {
+                users = users.Where(u => u.Likee.Any(l => l.LikeeId == u.Id));
+            }
+
             if(userParams.MinAge != 18 || userParams.MaxAge != 99)
             {
                 users = users.Where(u => u.DateOfBirth.ConvertDateTimeToInt() >= userParams.MinAge && u.DateOfBirth.ConvertDateTimeToInt() <= userParams.MaxAge);
