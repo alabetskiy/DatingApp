@@ -32,7 +32,8 @@ export class UserService {
       queryString +=
         'minAge=' + userParams.minAge +
         '&maxAge=' + userParams.maxAge +
-        '&gender=' + userParams.gender;
+        '&gender=' + userParams.gender +
+        '&orderBy=' + userParams.orderBy;
     }
     return this.authHttp.get(this.baseUrl + 'users'+ queryString)
       .map((response:Response) => {

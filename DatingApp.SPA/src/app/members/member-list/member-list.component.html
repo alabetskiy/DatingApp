@@ -23,12 +23,23 @@
         <label for="gender">Show: </label>
         <select class="form-control" style="width: 130px" id="gender" name="gender" [(ngModel)]="userParams.gender">
           <option *ngFor="let gender of genderList" [value]="gender.value">
-              {{gender.display}}
+            {{gender.display}}
           </option>
         </select>
       </div>
       <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
       <button type="button" class="btn btn-info" style="margin-left:10px" (click)="resetFilters()">Reset Filter</button>
+      <div class="pull-right">
+        <!-- HTML for ordering -->
+
+        <div class="pull-right">
+          <label style="margin-right: 10px">Order By: </label>
+          <div class="btn-group">
+            <button type="button" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadUsers()" class="btn btn-primary" btnRadio="lastActive">Last Active</button>
+            <button type="button" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadUsers()" class="btn btn-primary" btnRadio="created">Newest Members</button>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
   <br>
