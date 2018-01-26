@@ -25,7 +25,8 @@ namespace DatingApp.API.Models
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Like> Liker { get; set; } //Setting up Many-to-Many (EF Core way)
         public ICollection<Like> Likee { get; set; } //Setting up Many-to-Many (EF Core way)
-
+        public ICollection<Message> MessageSent { get; set; }
+        public ICollection<Message> MessagesRecieved { get; set; }
         public User(){
             Photos = new Collection<Photo>();
         }
