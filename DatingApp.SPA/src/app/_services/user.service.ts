@@ -1,3 +1,4 @@
+import { PaginatedResult } from './../_models/Pagination';
 
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
@@ -9,9 +10,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { AuthHttp } from 'angular2-jwt';
-
 import { Response } from '@angular/http';
-import { PaginatedResult } from '../_models/Pagination';
+import { Message } from '../_models/message';
+
 
 
 @Injectable()
@@ -86,6 +87,38 @@ deletePhoto(userId: number, id: number){
   sendLike(id: number, recipientId: number) {
     return this.authHttp.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {}).catch(this.handleError);
   }
+
+  getMessages(id: number, page?: number, itemsPerPage?: number, messageContainer?: string) {
+    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
+    let queryString = '?MessageContainer=' + messageContainer;
+
+    if (page != null && itemsPerPage != null) {
+      queryString += '&pageNumber=' + page + '&pageSize=' + itemsPerPage;
+    }
+
+    return this.authHttp.get(this.baseUrl + 'users/' + id + '/messages' + queryString).map((response: Response) => {
+      paginatedResult.result = response.json();
+
+      if (response.headers.get('Pagination') != null) {
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+      }
+      return paginatedResult;
+      }).catch(this.handleError);
+  }
+
+
+  getMessageThread(id:number, recipientId: number){
+   return this.authHttp.get(this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId).map((response: Response) => {
+      return response.json();
+    }).catch(this.handleError);
+  }
+
+  sendMessage(id: number, message: Message){
+    return this.authHttp.post(this.baseUrl + 'users/' + id + '/messages', message).map((response: Response) => {
+      return response.json();
+    }).catch(this.handleError);
+  }
+
   private handleError(error: any) {
     if(error.status === 400)
       return Observable.throw(error._body)
