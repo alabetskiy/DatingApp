@@ -34,6 +34,7 @@ import {TimeAgoPipe} from 'time-ago-pipe';
 import { ListsResolver } from './_resolvers/lists.resolver';
 import { MessagesResolver } from './_resolvers/message.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 
@@ -58,7 +59,6 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
     BrowserModule,
     HttpModule, //old http client
     FormsModule,
-    HttpClientModule, //new http client 
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes), //appRoutes is my ts file where I define all my routes. 
@@ -68,7 +68,16 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
     FileUploadModule,
     ReactiveFormsModule,
     PaginationModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    HttpClientModule, //new http client. HttpClient Intercepter will attached token (tokenGetter) to our request 
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        },
+        whitelistedDomains: ['localhost:5000'] //this hardcoded value won't break in jwt in prod
+      }
+    })
     
 
   ],

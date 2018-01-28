@@ -1,13 +1,13 @@
+import { AuthUser } from './../_models/AuthUser';
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { User } from '../_models/User';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthService {
@@ -15,10 +15,9 @@ export class AuthService {
   userToken: any;
   decodedToken: any;
   currentUser: User;
-  jwtHelper: JwtHelper = new JwtHelper();
   private photoUrl = new BehaviorSubject<string>('../../assets/user.png'); //using BehaviourSubject to export values to any component
   currentPhotoUrl = this.photoUrl.asObservable(); // we're using it because we want certain component can subscribe to it and get latest photoUrl
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient, private jwtHelperService: JwtHelperService ) { }
 
   changeMemberPhoto(photoUrl: string) {
     this.photoUrl.next(photoUrl); //assigning value for photoUrl BehaviorSubject
@@ -27,12 +26,13 @@ export class AuthService {
   login(model: any) {
 
 
-    return this.http.post(this.baseUrl + 'login', model).map((response: Response) => {
-      const user = response.json();
+    return this.http.post<AuthUser>(this.baseUrl + 'login', model,{headers: new HttpHeaders() //Specify <AuthUser> in order to help map(user) see properties 
+      .set('Content-Type', 'application/json')}).map(user => { 
+     
       if (user && user.tokenString) {
         localStorage.setItem('token', user.tokenString);
         localStorage.setItem('user', JSON.stringify(user.user));
-        this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
+        this.decodedToken = this.jwtHelperService.decodeToken(user.tokenString);
         this.currentUser = user.user;
         this.userToken = user.tokenString;
         if(this.currentUser.photoUrl !== null) {
@@ -46,11 +46,18 @@ export class AuthService {
   }
 
   register(model: any) {
-    return this.http.post(this.baseUrl + 'register', model).catch(this.handleError);
+    return this.http.post(this.baseUrl + 'register', model, {headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')}).catch(this.handleError);
   }
 
   loggedIn() {
-    return tokenNotExpired('token');
+    const token = this.jwtHelperService.tokenGetter(); //get our token and store on localStorage
+
+    if(!token) 
+      return false;
+
+    return !this.jwtHelperService.isTokenExpired(token);
+
   }
 
 
