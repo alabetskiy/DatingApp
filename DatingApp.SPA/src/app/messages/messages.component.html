@@ -43,7 +43,8 @@
         </td>
         <td>{{message.messageSent | timeAgo}}</td>
         <td>
-          <button class="btn btn-danger">Delete</button>
+          <!-- Added "$event.stopPropagation()" to avoid regirection to /members.... -->
+          <button class="btn btn-danger" (click) = "$event.stopPropagation()" (click)="deleteMessage(message.id)">Delete</button>
         </td>
       </tr>
     </table>

@@ -6,6 +6,7 @@ import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../_services/user.service';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-messages',
@@ -37,6 +38,17 @@ messageContainer = 'Unread';
     }, error => {
       this.alertify.error(error);
     })
+  }
+
+  deleteMessage(id:number){
+    this.alertify.confirm("Are you sure you want to delete the message?", () =>{
+      this.userService.deleteMessages(id, this.authService.decodedToken.nameid).subscribe(() => {
+        this.messages.splice(_.findIndex(this.messages, {id:id}),1);
+        this.alertify.success("Message has been deleted");
+      }, error => {
+        this.alertify.error("Faild to delete a message");
+      });
+    });
   }
 
   pageChanged(event:any): void {

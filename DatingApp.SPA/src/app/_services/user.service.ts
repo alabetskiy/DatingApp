@@ -21,12 +21,12 @@ export class UserService {
 
   constructor(private authHttp: AuthHttp) { }
 
-  getUsers(page?: number, itemsPerPage?: number, userParams?: any, likesParam?:string) {
-    const paginatedResult:PaginatedResult<User[]> = new PaginatedResult<User[]>();
+  getUsers(page?: number, itemsPerPage?: number, userParams?: any, likesParam?: string) {
+    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let queryString = '?';
 
-    if(page != null && itemsPerPage != null){
-      queryString +='pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
+    if (page != null && itemsPerPage != null) {
+      queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
     }
 
     if (likesParam === 'Likers') {
@@ -44,10 +44,10 @@ export class UserService {
         '&gender=' + userParams.gender +
         '&orderBy=' + userParams.orderBy;
     }
-    return this.authHttp.get(this.baseUrl + 'users'+ queryString)
-      .map((response:Response) => {
+    return this.authHttp.get(this.baseUrl + 'users' + queryString)
+      .map((response: Response) => {
         paginatedResult.result = response.json(); //getting result from body
-        if(response.headers.get('Pagination')!=null){ //checking if we have some data regarding current page itemsPerPage, totalItems and totalPages. 
+        if (response.headers.get('Pagination') != null) { //checking if we have some data regarding current page itemsPerPage, totalItems and totalPages. 
           paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
         }
 
@@ -79,9 +79,9 @@ export class UserService {
     return this.authHttp.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {}).catch(this.handleError);
   }
 
-deletePhoto(userId: number, id: number){
-  return this.authHttp.delete(this.baseUrl + 'users/'+userId+'/photos/'+id).catch(this.handleError);
-}
+  deletePhoto(userId: number, id: number) {
+    return this.authHttp.delete(this.baseUrl + 'users/' + userId + '/photos/' + id).catch(this.handleError);
+  }
 
 
   sendLike(id: number, recipientId: number) {
@@ -103,24 +103,31 @@ deletePhoto(userId: number, id: number){
         paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
       }
       return paginatedResult;
-      }).catch(this.handleError);
+    }).catch(this.handleError);
   }
 
 
-  getMessageThread(id:number, recipientId: number){
-   return this.authHttp.get(this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId).map((response: Response) => {
+  getMessageThread(id: number, recipientId: number) {
+    return this.authHttp.get(this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId).map((response: Response) => {
       return response.json();
     }).catch(this.handleError);
   }
 
-  sendMessage(id: number, message: Message){
+  sendMessage(id: number, message: Message) {
     return this.authHttp.post(this.baseUrl + 'users/' + id + '/messages', message).map((response: Response) => {
       return response.json();
     }).catch(this.handleError);
   }
 
+  deleteMessages(id: number, userId: number) {
+    return this.authHttp.post(this.baseUrl + 'users/' + userId + '/messages/' + id, {}).map(response =>{}).catch(this.handleError);
+  }
+
+  markAsRead(userId:number, messageId:number) {
+    return this.authHttp.post(this.baseUrl + 'users/' + userId + '/messages/' + messageId + '/read', {}).subscribe();
+  }
   private handleError(error: any) {
-    if(error.status === 400)
+    if (error.status === 400)
       return Observable.throw(error._body)
 
     const applicationError = error.headers.get('Application-Error');
