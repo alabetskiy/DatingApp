@@ -103,7 +103,7 @@ namespace DatingApp.API.Controllers
         _repo.Add<Like>(like);
 
         if(await _repo.SaveAll())
-            return Ok();
+            return Ok(new {}); //return empty object for client (sendLike(id:number))
 
         return BadRequest("Failder to add user");
     }

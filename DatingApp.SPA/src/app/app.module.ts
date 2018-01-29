@@ -9,9 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
-
 import { AppComponent } from './app.component';
-
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
@@ -21,7 +19,6 @@ import { ListComponent } from './list/list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './_guards/auth.guard';
-import { AuthModule } from './auth/auth.module';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { NgxGalleryModule } from 'ngx-gallery';
@@ -35,6 +32,7 @@ import { ListsResolver } from './_resolvers/lists.resolver';
 import { MessagesResolver } from './_resolvers/message.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
 
 
@@ -64,7 +62,6 @@ import { JwtModule } from '@auth0/angular-jwt';
     RouterModule.forRoot(appRoutes), //appRoutes is my ts file where I define all my routes. 
     TabsModule.forRoot(),
     NgxGalleryModule,
-    AuthModule,   //this is my authModule which I got from https://github.com/auth0/angular2-jwt#advanced-configuration   
     FileUploadModule,
     ReactiveFormsModule,
     PaginationModule.forRoot(),
@@ -91,7 +88,8 @@ import { JwtModule } from '@auth0/angular-jwt';
     MemberListResolver,
     MemberEditResolver,
     ListsResolver,
-    MessagesResolver
+    MessagesResolver,
+    ErrorInterceptorProvider
   ],
   bootstrap: [AppComponent]
 })

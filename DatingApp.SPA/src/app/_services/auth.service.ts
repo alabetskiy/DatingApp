@@ -42,12 +42,12 @@ export class AuthService {
         }
        
       }
-    }).catch(this.handleError);
+    });
   }
 
   register(model: any) {
     return this.http.post(this.baseUrl + 'register', model, {headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')}).catch(this.handleError);
+      .set('Content-Type', 'application/json')});
   }
 
   loggedIn() {
@@ -58,26 +58,5 @@ export class AuthService {
 
     return !this.jwtHelperService.isTokenExpired(token);
 
-  }
-
-
-  private handleError(error: any) {
-
-    const applicationError = error.headers.get('Application-Error');
-    if (applicationError) {
-      return Observable.throw(applicationError);
-    }
-
-
-    const serverError = error.json();
-    let modelStateErrors = '';
-    if (serverError) {
-      for (const key in serverError) {
-        if (serverError[key]) {
-          modelStateErrors += serverError[key] + '\n';
-        }
-      }
-    }
-    return Observable.throw(modelStateErrors || 'Server error');
   }
 }
